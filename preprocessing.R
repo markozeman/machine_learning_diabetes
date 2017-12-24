@@ -18,6 +18,21 @@ preprocess <- function() {
   diabetes$citoglipton <- NULL;
   diabetes$glimepiride.pioglitazone <- NULL;
   
+  # več kot 99.9 % primerov pripada isti vrednosti, zato jih izločimo (skupaj 71515 primerov)
+  diabetes$metformin.pioglitazone <- NULL;    # Steady: 1
+  diabetes$metformin.rosiglitazone <- NULL;   # Steady: 2
+  diabetes$glipizide.metformin <- NULL;       # Steady: 7
+  diabetes$tolazamide <- NULL;                # Steady: 30
+  diabetes$troglitazone <- NULL;              # Steady: 3
+  diabetes$miglitol <- NULL;                  # Down: 1, Steady: 18, Up: 1
+  diabetes$tolbutamide <- NULL;               # Steady: 19
+  diabetes$acetohexamide <- NULL;             # Steady: 1
+  
+  # make numeric id attributes factors
+  diabetes$admission_type_id <- as.factor(diabetes$admission_type_id);
+  diabetes$discharge_disposition_id <- as.factor(diabetes$discharge_disposition_id);
+  diabetes$admission_source_id <- as.factor(diabetes$admission_source_id);
+  
   # remove instances with unknown gender
   diabetes <- diabetes[diabetes$gender == 'Male' | diabetes$gender == 'Female', ];
   

@@ -149,5 +149,20 @@ corrected.t.test <- function(treatmentsA, treatmentsB)
 }
 
 
+# the class with the most votes wins
+voting <- function(predictions)
+{
+  res <- vector()
+  
+  for (i in 1 : nrow(predictions))  	
+  {
+    vec <- unlist(predictions[i,])
+    res[i] <- names(which.max(table(vec)))
+  }
+  
+  factor(res, levels=levels(predictions[,1]))
+}
+
+
 
 
